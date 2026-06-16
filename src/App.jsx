@@ -1,17 +1,9 @@
 import './App.css'
 import 'remixicon/fonts/remixicon.css'
-import { ModalPage } from './pages/ModalPage'
+import { AppRoutes } from './routes/AppRoutes'
 
 function App() {
-
-
-  return (
-    <>
-     <main className="min-h-screen bg-slate-100 flex items-center justify-center">
-       <ModalPage/>
-     </main>
-    </>
-  )
+  return <AppRoutes />
 }
 
 export default App

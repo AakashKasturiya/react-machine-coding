@@ -12,7 +12,9 @@ export const ModalPage = () => {
             <ModalForm/>
         </ModalComponent>
       )}
-      <ModalButton setOpenModal={setOpenModal} />
+      <div className="flex items-center justify-center w-full min-h-screen">
+         <ModalButton setOpenModal={setOpenModal} />
+      </div>
     </>
   );
 };
