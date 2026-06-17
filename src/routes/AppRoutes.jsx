@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Outlet, Navigate } from "react-router-dom";
 import { AccordionPage } from "../pages/AccordionPage";
 import { ModalPage } from "../pages/ModalPage";
+import { TabsPage } from "../pages/TabsPage";
 
 const Layout = () => {
   return (
@@ -29,6 +30,7 @@ export const AppRoutes = () => {
           <Route index element={<HomePage />} />
           <Route path="accordion" element={<AccordionPage />} />
           <Route path="modal" element={<ModalPage />} />
+          <Route path="tabs" element={<TabsPage/>} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
