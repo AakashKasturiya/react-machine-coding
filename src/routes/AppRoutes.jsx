@@ -3,6 +3,8 @@ import { AccordionPage } from "../pages/AccordionPage";
 import { ModalPage } from "../pages/ModalPage";
 import { TabsPage } from "../pages/TabsPage";
 import { ToastPage } from "../pages/ToastPage";
+import { OtpPage } from "../pages/OtpPage";
+import { MultiselectPage } from "../pages/MultiselectPage";
 
 const Layout = () => {
   return (
@@ -33,6 +35,9 @@ export const AppRoutes = () => {
           <Route path="modal" element={<ModalPage />} />
           <Route path="tabs" element={<TabsPage/>} />
           <Route path="toast" element={<ToastPage/>} />
+          <Route path="otp" element={<OtpPage/>} />
+          <Route path="multi-select" element={<MultiselectPage/>} />
+
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
