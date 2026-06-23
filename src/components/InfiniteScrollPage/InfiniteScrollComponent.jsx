@@ -1,32 +1,50 @@
 import { ProductCard } from "./ProductCard";
-import { Loader } from "./Loader";
 import { useEffect, useState, useRef } from "react";
 import { ProductSkeleton } from "./ProductSkeleton";
 import { EndMessage } from "./EndMessage";
 import { InfiniteScrollHeader } from "./InfiniteScrollHeader";
 
 export const InfiniteScrollComponent = () => {
+  // Stores all products fetched so far (we append new pages to this array)
   const [products, setProducts] = useState([]);
+
+  // `page` is used as the `skip` value for the API (0, 10, 20...)
   const [page, setPage] = useState(0);
+
+  // True while an API request is in-flight
   const [loading, setLoading] = useState(false);
 
+  // Controls whether the floating "scroll to top" button is visible
   const [showScrollToTop, setShowScrollToTop] = useState(false);
 
+  // False when API returns less than the requested page size (means no more data)
   const [hasMore, setHasMore] = useState(true);
+
+  // Stores a user-friendly error message when API request fails
   const [error, setError] = useState("");
 
+  // Points to the "sentinel" element at the bottom of the list.
+  // When it becomes visible, we load the next page.
   const loaderRef = useRef(null);
+
+  // Points to the internal scrollable container (phone screen).
+  // We use this as IntersectionObserver `root` so infinite-scroll works inside it.
   const scrollContainerRef = useRef(null);
 
+  // Runs on scroll of the internal container.
+  // Used only to toggle the "scroll to top" button.
   const handleScroll = (e) => {
     const top = e.currentTarget.scrollTop;
     setShowScrollToTop(top > 300);
   };
 
+  // Scroll the internal container back to the top
   const scrollToTop = () => {
     scrollContainerRef.current?.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  // Fetch products whenever `page` changes.
+  // We append unique results to `products`.
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -60,7 +78,6 @@ export const InfiniteScrollComponent = () => {
     fetchProducts();
   }, [page]);
 
-  console.log(products);
 
   /**Old scollbar functionality */
   //   useEffect(() => {
@@ -79,6 +96,9 @@ export const InfiniteScrollComponent = () => {
   //     return () => window.removeEventListener("scroll", handleScroll);
   //   }, [loading, hasMore]);
 
+  // Infinite scroll using IntersectionObserver:
+  // - observes `loaderRef` inside `scrollContainerRef`
+  // - when the loader is visible, we load next page
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
