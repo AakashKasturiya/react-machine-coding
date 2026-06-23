@@ -5,6 +5,7 @@ import { TabsPage } from "../pages/TabsPage";
 import { ToastPage } from "../pages/ToastPage";
 import { OtpPage } from "../pages/OtpPage";
 import { MultiselectPage } from "../pages/MultiselectPage";
+import { InfiniteScrollPage } from "../pages/InfiniteScrollPage";
 
 const Layout = () => {
   return (
@@ -37,6 +38,7 @@ export const AppRoutes = () => {
           <Route path="toast" element={<ToastPage/>} />
           <Route path="otp" element={<OtpPage/>} />
           <Route path="multi-select" element={<MultiselectPage/>} />
+          <Route path="infinite-scroll" element={<InfiniteScrollPage/>} />
 
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
