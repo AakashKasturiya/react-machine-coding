@@ -6,6 +6,7 @@ import { ToastPage } from "../pages/ToastPage";
 import { OtpPage } from "../pages/OtpPage";
 import { MultiselectPage } from "../pages/MultiselectPage";
 import { InfiniteScrollPage } from "../pages/InfiniteScrollPage";
+import { AutoCompleteSearch } from "../components/AutocompleteSearch/AutocompleteSearchComponent";
 
 const Layout = () => {
   return (
@@ -39,6 +40,7 @@ export const AppRoutes = () => {
           <Route path="otp" element={<OtpPage/>} />
           <Route path="multi-select" element={<MultiselectPage/>} />
           <Route path="infinite-scroll" element={<InfiniteScrollPage/>} />
+          <Route path="autocomplete-search" element={<AutoCompleteSearch/>}/>
 
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
