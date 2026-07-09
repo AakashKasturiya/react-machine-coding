@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route, Outlet, Navigate } from "react-router-dom";
+import { HomePage } from "../pages/HomePage";
 import { AccordionPage } from "../pages/AccordionPage";
 import { ModalPage } from "../pages/ModalPage";
 import { TabsPage } from "../pages/TabsPage";
@@ -7,6 +8,7 @@ import { OtpPage } from "../pages/OtpPage";
 import { MultiselectPage } from "../pages/MultiselectPage";
 import { InfiniteScrollPage } from "../pages/InfiniteScrollPage";
 import { AutoCompleteSearch } from "../components/AutocompleteSearch/AutocompleteSearchComponent";
+import { DataTableComponent } from "../pages/DataTableComponent";
 
 const Layout = () => {
   return (
@@ -17,15 +19,6 @@ const Layout = () => {
     </div>
   );
 };
-
-const HomePage = () => (
-  <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
-    <h2 className="text-2xl font-semibold text-slate-900">Welcome</h2>
-    <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-600 sm:text-base">
-      Use the navigation links above to switch between the accordion demo and the modal demo. This layout uses React Router with an Outlet so child views render inside the shared page shell.
-    </p>
-  </section>
-);
 
 export const AppRoutes = () => {
   return (
@@ -41,6 +34,7 @@ export const AppRoutes = () => {
           <Route path="multi-select" element={<MultiselectPage/>} />
           <Route path="infinite-scroll" element={<InfiniteScrollPage/>} />
           <Route path="autocomplete-search" element={<AutoCompleteSearch/>}/>
+          <Route path="data-table-component" element={<DataTableComponent/>} />
 
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
