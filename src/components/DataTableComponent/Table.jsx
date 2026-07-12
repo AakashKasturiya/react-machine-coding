@@ -1,14 +1,60 @@
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { TableSkeleton } from "./TableSkeleton";
 
-export const Table = ({ users, loading, error, handlerDelete, allSelect, selectAllHandler }) => {
+export const Table = ({ users, loading, error, handlerDelete, allSelect, selectAllHandler, clearAllHandler }) => {
+  const confirmDeleteAll = () => {
+    Swal.fire({
+      title: 'Delete all users?',
+      text: "This action cannot be undone.",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#6b7280',
+      confirmButtonText: 'Yes, delete all',
+      cancelButtonText: 'Cancel',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        clearAllHandler();
+        Swal.fire({
+          title: 'Deleted!',
+          text: 'All users have been removed.',
+          icon: 'success',
+          confirmButtonColor: '#2563eb',
+        });
+      }
+    });
+  };
+
   return (
     <>
       <div className="overflow-x-auto">
+           {allSelect && (
+            <div className="flex justify-end px-6">
+        <button
+          type="button"
+          className="
+      px-5
+      py-3
+      rounded-xl
+      border
+      text-white
+      bg-red-600
+      hover:bg-red-800
+      transition
+    "
+       onClick={confirmDeleteAll}
+        >
+          Delete All
+        </button>
+        </div>
+           )}
+ 
+
         <table className="min-w-full">
           <thead className="bg-slate-50">
             <tr>
               <th className="px-6 py-4 text-left">
-                <input type="checkbox" onChange={(e)=>selectAllHandler(e.target.checked)} />
+                <input type="checkbox" checked={allSelect} onChange={(e)=>selectAllHandler(e.target.checked)} />
               </th>
               {["Name", "Email", "Age", "Gender", "Phone", " Address", "Actions"].map(
                 (item, index) => (
@@ -48,7 +94,7 @@ export const Table = ({ users, loading, error, handlerDelete, allSelect, selectA
                   "
                 >
                   <td className="px-6 py-5">
-                    <input type="checkbox" checked={allSelect ? "checked" : ""} />
+                    <input type="checkbox" checked={allSelect} readOnly />
                   </td>
 
                   <td className="px-6 py-5">
@@ -74,12 +120,14 @@ export const Table = ({ users, loading, error, handlerDelete, allSelect, selectA
                           {user.firstName + " " + user.lastName}
                         </h3>
 
-                        <p className="text-sm text-slate-500">{user.role}</p>
+                        <p className="text-sm text-slate-500">{user.company.department}</p>
                       </div>
                     </div>
                   </td>
 
-                  <td className="px-6 py-5 text-slate-600">{user.email}</td>
+                  <td className="px-6 py-5 text-slate-600">
+                    {user.email.length > 10 ? `${user.email.slice(0, 10)}...` : user.email}
+                  </td>
                   <td className="px-6 py-5">{user.age}</td>
                   <td className="px-6 py-5">{user.gender}</td>
                   <td className="px-6 py-5">{user.phone}</td>
@@ -100,27 +148,14 @@ export const Table = ({ users, loading, error, handlerDelete, allSelect, selectA
                   <td className="px-6 py-5">
                     <div className="flex justify-center gap-2">
                       <button
-                        className="
-                        h-10
-                        w-10
-                        rounded-xl
-                        bg-slate-100
-                        hover:bg-indigo-100
-                        transition
-                        "
-                      >
-                        <i className="ri-edit-line"></i>
-                      </button>
-
-                      <button
                         onClick={() => handlerDelete(user.id)}
                         className="
                         h-10
                         w-10
                         rounded-xl
-                        bg-red-50
-                        hover:bg-red-100
-                        text-red-500
+                        bg-red-400
+                        hover:bg-red-800
+                        text-white
                         transition
                         "
                       >
@@ -131,7 +166,21 @@ export const Table = ({ users, loading, error, handlerDelete, allSelect, selectA
                 </tr>
               ))
             ) : (
-              <p>Users is not Available !!</p>
+              <tr>
+                <td colSpan={8} className="px-6 py-10">
+                  <div className="w-full flex flex-col items-center justify-center gap-3 rounded-3xl border border-dashed border-slate-200 bg-white p-8 text-slate-500 shadow-sm">
+                    <div className="flex h-14 w-14 items-center justify-center rounded-full bg-indigo-50 text-indigo-600">
+                      <i className="ri-user-search-line text-2xl"></i>
+                    </div>
+                    <div className="text-center">
+                      <p className="text-lg font-semibold text-slate-800">No users found</p>
+                      <p className="mt-2 text-sm text-slate-500">
+                        Try a different search, sort, or filter to find users.
+                      </p>
+                    </div>
+                  </div>
+                </td>
+              </tr>
             )}
           </tbody>
         </table>
