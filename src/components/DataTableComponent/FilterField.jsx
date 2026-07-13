@@ -12,11 +12,27 @@ export default function FilterField({
   onApply,
 }) {
   return (
-    <div className={`absolute z-50 top-full left-0 right-0 sm:right-0 sm:left-auto mt-3 mx-4 sm:mx-0 w-[min(100vw-2rem,40rem)] rounded-3xl border border-slate-200 bg-white p-5 shadow-2xl transition-all ${
-        filterToggle ? "opacity-100 scale-100" : "pointer-events-none opacity-0 scale-95"
-      }`}
+    <div className={`absolute
+    top-full
+    right-0
+    mt-3
+    z-50
+    w-full
+    sm:w-[650px]
+    rounded-3xl
+    border
+    border-slate-200
+    bg-white
+    p-5
+    shadow-2xl
+    transition-all
+    ${filterToggle
+        ? "opacity-100 scale-100"
+        : "opacity-0 scale-95 pointer-events-none"
+      }
+  `}
     >
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-slate-600 mb-2">
             Gender

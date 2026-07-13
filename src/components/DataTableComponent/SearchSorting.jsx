@@ -29,7 +29,7 @@ export default function SearchSorting({
   ];
 
   return (
-    <div className="relative">
+    <div className="relative w-full">
       {/* Header */}
       <div className="flex items-center gap-2 mb-6">
         <div className="flex items-center justify-center w-9 h-9 rounded-lg bg-indigo-100">
@@ -45,9 +45,9 @@ export default function SearchSorting({
         </div>
       </div>
 
-      <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-        <div className="flex-1 flex flex-col gap-4">
-          <div>
+      <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+        <div className="flex-1 flex flex-col sm:flex-row sm:items-end gap-4 w-full">
+          <div className="w-full sm:flex-1">
             <label
               htmlFor="user-search"
               className="block text-sm font-medium text-slate-600 mb-2"
@@ -66,7 +66,7 @@ export default function SearchSorting({
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-4 w-full sm:w-auto sm:min-w-[280px]">
             <div className="flex flex-col">
               <label
                 htmlFor="sort-field"
@@ -110,39 +110,41 @@ export default function SearchSorting({
           </div>
 
           {sortBy && (
-            <div className="inline-flex items-center gap-1.5 text-xs font-medium text-indigo-700 bg-indigo-50 border border-indigo-100 rounded-full px-3 py-1.5 w-fit">
+            <div className="inline-flex items-center gap-1.5 text-xs font-medium text-indigo-700 bg-indigo-50 border border-indigo-100 rounded-full px-3 py-1.5 w-fit h-fit sm:mb-3">
               {sortFields.find((f) => f.value === sortBy)?.label} · {order === "asc" ? "Ascending" : "Descending"}
             </div>
           )}
+
+          <div className="w-full sm:w-auto">
+            <button
+              onClick={filterToggleFunction}
+              className="w-full sm:w-auto flex items-center gap-3 rounded-3xl border border-slate-200 bg-white px-5 py-4 shadow-sm transition hover:border-indigo-300"
+              type="button"
+            >
+              <div className="flex items-center justify-center w-9 h-9 rounded-lg bg-indigo-100">
+                <i className="ri-filter-3-line text-xl text-indigo-600"></i>
+              </div>
+              <div className="text-left">
+                <h3 className="text-base font-semibold text-slate-900">Filters</h3>
+                <p className="text-sm text-slate-500">Filter results in place.</p>
+              </div>
+            </button>
+
+            <FilterField
+              filterToggle={filterToggle}
+              gender={gender}
+              setGender={setGender}
+              age={age}
+              setAge={setAge}
+              department={department}
+              setDepartment={setDepartment}
+              clearFilters={clearFilters}
+              onApply={closeFilterPanel}
+            />
+          </div>
         </div>
 
-        <div className="relative w-full sm:w-auto">
-          <button
-            onClick={filterToggleFunction}
-            className="w-full sm:w-auto flex items-center gap-3 rounded-3xl border border-slate-200 bg-white px-5 py-4 shadow-sm transition hover:border-indigo-300"
-            type="button"
-          >
-            <div className="flex items-center justify-center w-9 h-9 rounded-lg bg-indigo-100">
-              <i className="ri-filter-3-line text-xl text-indigo-600"></i>
-            </div>
-            <div className="text-left">
-              <h3 className="text-base font-semibold text-slate-900">Filters</h3>
-              <p className="text-sm text-slate-500">Filter results in place.</p>
-            </div>
-          </button>
 
-          <FilterField
-            filterToggle={filterToggle}
-            gender={gender}
-            setGender={setGender}
-            age={age}
-            setAge={setAge}
-            department={department}
-            setDepartment={setDepartment}
-            clearFilters={clearFilters}
-            onApply={closeFilterPanel}
-          />
-        </div>
       </div>
     </div>
   );
