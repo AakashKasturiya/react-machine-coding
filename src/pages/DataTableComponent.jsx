@@ -148,7 +148,7 @@ export const DataTableComponent = () => {
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-slate-100 via-slate-50 to-indigo-100 p-4 sm:p-6">
-      <section className="max-w-7xl mx-auto bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden">
+      <section className="max-w-7xl mx-auto bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-visible">
         {/* Header */}
         <Header />
 

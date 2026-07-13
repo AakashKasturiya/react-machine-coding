@@ -1,80 +1,30 @@
-import { useState } from "react";
+
 
 export default function FilterField({
-    gender,
-    setGender,
-    age,
-    setAge,
-    department,
-    setDepartment,
-    clearFilters,
+  gender,
+  setGender,
+  age,
+  setAge,
+  department,
+  setDepartment,
+  clearFilters,
+  filterToggle,
+  onApply,
 }) {
-    const [filterToggle, setFilterToggle] = useState(false);
-
-    const filterToggleFunction = () => {
-          setFilterToggle(prev => !prev)
-    }
-
   return (
-    <div className="mb-6 mt-8">
-         <div className="flex items-start justify-between gap-3 mt-6">
-      <button onClick={filterToggleFunction} className="flex items-center gap-2 mb-5 cursor-pointer">
-        <div className="flex items-center justify-center w-9 h-9 rounded-lg bg-indigo-100">
-            <i className="ri-filter-3-line text-xl text-indigo-600"></i>
-        </div>
-        <div className="flex flex-col items-start justify-start gap-1">
-        <h3 className="text-lg font-semibold text-slate-800">Filters</h3>
-        <p className="text-sm text-slate-500">Find users and arrange them the way you need.</p>
-        </div>
-      </button>
-         {filterToggle && (
-                   <button
-          type="button"
-          className="
-      px-5
-      py-3
-      rounded-xl
-      border
-      border-slate-200
-      hover:bg-slate-100
-      transition
-    "
-       onClick={clearFilters}
-        >
-          Reset Filters
-        </button>
-         )}
-
-
-      
-      </div>
-
-        {filterToggle && (
-          <section>  
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {/* Gender */}
-
+    <div className={`absolute z-50 top-full left-0 right-0 sm:right-0 sm:left-auto mt-3 mx-4 sm:mx-0 w-[min(100vw-2rem,40rem)] rounded-3xl border border-slate-200 bg-white p-5 shadow-2xl transition-all ${
+        filterToggle ? "opacity-100 scale-100" : "pointer-events-none opacity-0 scale-95"
+      }`}
+    >
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <div>
           <label className="block text-sm font-medium text-slate-600 mb-2">
             Gender
           </label>
-
           <select
-            className="
-        w-full
-        px-4
-        py-3
-        rounded-xl
-        border
-        border-slate-200
-        bg-white
-        outline-none
-        focus:ring-2
-        focus:ring-indigo-100
-        focus:border-indigo-400
-      "
+            className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white outline-none focus:ring-2 focus:ring-indigo-100 focus:border-indigo-400"
             value={gender}
-            onChange={(e)=>setGender(e.target.value)}
+            onChange={(e) => setGender(e.target.value)}
           >
             <option value="">All</option>
             <option value="male">Male</option>
@@ -82,29 +32,14 @@ export default function FilterField({
           </select>
         </div>
 
-        {/* Age */}
-
         <div>
           <label className="block text-sm font-medium text-slate-600 mb-2">
             Age
           </label>
-
           <select
-            className="
-        w-full
-        px-4
-        py-3
-        rounded-xl
-        border
-        border-slate-200
-        bg-white
-        outline-none
-        focus:ring-2
-        focus:ring-indigo-100
-        focus:border-indigo-400
-      "
+            className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white outline-none focus:ring-2 focus:ring-indigo-100 focus:border-indigo-400"
             value={age}
-            onChange={(e)=>setAge(e.target.value)}
+            onChange={(e) => setAge(e.target.value)}
           >
             <option value="">All Ages</option>
             <option value="18-25">18 - 25</option>
@@ -114,29 +49,14 @@ export default function FilterField({
           </select>
         </div>
 
-        {/* Department */}
-
         <div>
           <label className="block text-sm font-medium text-slate-600 mb-2">
             Department
           </label>
-
           <select
-            className="
-        w-full
-        px-4
-        py-3
-        rounded-xl
-        border
-        border-slate-200
-        bg-white
-        outline-none
-        focus:ring-2
-        focus:ring-indigo-100
-        focus:border-indigo-400
-      "
+            className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white outline-none focus:ring-2 focus:ring-indigo-100 focus:border-indigo-400"
             value={department}
-            onChange={(e)=>setDepartment(e.target.value)}
+            onChange={(e) => setDepartment(e.target.value)}
           >
             <option value="">All Departments</option>
             <option value="Accounting">Accounting</option>
@@ -152,15 +72,29 @@ export default function FilterField({
             <option value="Training">Training</option>
           </select>
         </div>
-
-     
-
       </div>
 
-      </section>
-        )}
-
-
+      <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:justify-between sm:items-center">
+        <div className="text-sm text-slate-500">
+          Select your filters and click Apply to close the panel.
+        </div>
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={clearFilters}
+            className="rounded-xl border border-slate-200 px-4 py-3 text-sm text-slate-700 hover:bg-slate-100 transition"
+          >
+            Reset
+          </button>
+          <button
+            type="button"
+            onClick={onApply}
+            className="rounded-xl bg-indigo-600 px-4 py-3 text-sm font-semibold text-white hover:bg-indigo-700 transition"
+          >
+            Apply
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

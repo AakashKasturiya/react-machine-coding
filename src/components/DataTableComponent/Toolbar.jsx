@@ -1,5 +1,5 @@
+import { useState } from "react";
 import SearchSorting from "./SearchSorting";
-import FilterField from "./FilterField";
 
 export const Toolbar = ({
   searchInput,
@@ -16,26 +16,37 @@ export const Toolbar = ({
   setDepartment,
   clearFilters,
 }) => {
+  const [filterToggle, setFilterToggle] = useState(false);
+
+  const filterToggleFunction = () => {
+    setFilterToggle((prev) => !prev);
+  };
+
+  const closeFilterPanel = () => {
+    setFilterToggle(false);
+  };
+
   return (
     <>
-      <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 my-6 mx-6">
-          <SearchSorting
-            searchInput={searchInput}
-            setSearchInput={setSearchInput}
-            sortBy={sortBy}
-            setSortBy={setSortBy}
-            order={order}
-            setOrder={setOrder}
-          />
-          <FilterField
-            gender={gender}
-            setGender={setGender}
-            age={age}
-            setAge={setAge}
-            department={department}
-            setDepartment={setDepartment}
-            clearFilters={clearFilters}
-          />
+      <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 my-6 mx-6 relative">
+        <SearchSorting
+          searchInput={searchInput}
+          setSearchInput={setSearchInput}
+          sortBy={sortBy}
+          setSortBy={setSortBy}
+          order={order}
+          setOrder={setOrder}
+          filterToggle={filterToggle}
+          filterToggleFunction={filterToggleFunction}
+          gender={gender}
+          setGender={setGender}
+          age={age}
+          setAge={setAge}
+          department={department}
+          setDepartment={setDepartment}
+          clearFilters={clearFilters}
+          closeFilterPanel={closeFilterPanel}
+        />
       </div>
     </>
   );
